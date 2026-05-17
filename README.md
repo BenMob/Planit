@@ -30,9 +30,12 @@ npm run preview
 ## Deploy (Windows)
 
 ```bat
-deploy.bat   REM builds portable exe and copies to Desktop (see .env.local)
+deploy.bat   REM optimizes icons, builds portable exe, copies to Desktop (see .env.local)
 clean.bat    REM removes out/, release/, and other build artifacts
+npm run icons  REM resize icon.png + generate icon.ico (also runs before dist/deploy)
 ```
+
+Build uses `compression: maximum` and English-only Electron locales to reduce portable exe size.
 
 Copy `.env.example` to `.env.local` and set `PLANIT_DEPLOY_DIR` to your Desktop path.
 

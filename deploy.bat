@@ -31,6 +31,13 @@ if not exist "resources\icon.png" (
   exit /b 1
 )
 
+echo [deploy] Optimizing icons (PNG + ICO)...
+call npm run icons
+if errorlevel 1 (
+  echo [deploy] Icon build failed.
+  exit /b 1
+)
+
 echo [deploy] Building Planit...
 call npm run build
 if errorlevel 1 (

@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
 import { eq, asc } from 'drizzle-orm'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import { getDb } from '../db/drizzle'
+import { newId } from '../utils/id'
 import { checklistItems } from '../db/schema'
 
 const eventIdSchema = z.object({
@@ -39,7 +39,7 @@ export function registerChecklistHandlers(): void {
     const input = createChecklistSchema.parse(raw)
     const db = getDb()
     const row = {
-      id: uuidv4(),
+      id: newId(),
       eventId: input.eventId,
       label: input.label,
       done: false,

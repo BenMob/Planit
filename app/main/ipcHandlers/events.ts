@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
 import { eq, desc } from 'drizzle-orm'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import { getDb } from '../db/drizzle'
+import { newId } from '../utils/id'
 import { events } from '../db/schema'
 
 const createEventSchema = z.object({
@@ -30,7 +30,7 @@ export function registerEventHandlers(): void {
     const input = createEventSchema.parse(raw)
     const db = getDb()
     const row = {
-      id: uuidv4(),
+      id: newId(),
       name: input.name,
       description: input.description ?? null,
       createdAt: new Date()

@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
 import { desc, eq } from 'drizzle-orm'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import { getDb } from '../db/drizzle'
+import { newId } from '../utils/id'
 import { bills } from '../db/schema'
 import {
   createBillDefaults,
@@ -53,7 +53,7 @@ export function registerBillHandlers(): void {
     const defaults = createBillDefaults(input)
     const db = getDb()
     const row = {
-      id: uuidv4(),
+      id: newId(),
       name: input.name.trim(),
       amountDue: input.amountDue,
       dueDate: input.dueDate,

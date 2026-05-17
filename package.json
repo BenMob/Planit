@@ -16,7 +16,8 @@
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
-    "dist": "npm run build && electron-builder --win portable",
+    "icons": "node scripts/build-icons.mjs",
+    "dist": "npm run icons && npm run build && electron-builder --win portable",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "postinstall": "electron-rebuild -f -w better-sqlite3 && electron-builder install-app-deps"
@@ -24,6 +25,8 @@
   "build": {
     "appId": "com.planit.app",
     "productName": "Planit",
+    "compression": "maximum",
+    "electronLanguages": ["en-US"],
     "directories": {
       "output": "release",
       "buildResources": "resources"
@@ -50,7 +53,7 @@
           "arch": ["x64"]
         }
       ],
-      "icon": "resources/icon.png",
+      "icon": "resources/icon.ico",
       "artifactName": "Planit.${ext}",
       "signAndEditExecutable": false
     }
@@ -62,15 +65,15 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "recharts": "^2.15.1",
-    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.12",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "@types/uuid": "^10.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "png-to-ico": "^2.1.8",
+    "sharp": "^0.33.5",
     "autoprefixer": "^10.4.20",
     "drizzle-kit": "^0.30.4",
     "electron": "^34.2.0",

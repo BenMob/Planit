@@ -100,7 +100,7 @@ export default function BillDashboard() {
       )}
 
       <Card title="Amount due by bill" className="mb-6">
-        <Chart data={chartData} variant="pie" />
+        <Chart data={chartData} />
       </Card>
 
       <Card title="All bills" className="!p-0">

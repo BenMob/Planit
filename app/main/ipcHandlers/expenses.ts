@@ -1,8 +1,8 @@
 import { ipcMain } from 'electron'
 import { eq, desc } from 'drizzle-orm'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import { getDb } from '../db/drizzle'
+import { newId } from '../utils/id'
 import { expenses } from '../db/schema'
 
 const eventIdSchema = z.object({
@@ -44,7 +44,7 @@ export function registerExpenseHandlers(): void {
     const input = createExpenseSchema.parse(raw)
     const db = getDb()
     const row = {
-      id: uuidv4(),
+      id: newId(),
       eventId: input.eventId,
       name: input.name,
       amount: input.amount,

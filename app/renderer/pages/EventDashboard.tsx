@@ -115,7 +115,7 @@ export default function EventDashboard() {
         </Card>
 
         <Card title="By category" className="lg:col-span-2">
-          <Chart data={summary} variant="pie" />
+          <Chart data={summary} />
         </Card>
       </div>
 
