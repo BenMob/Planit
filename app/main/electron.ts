@@ -20,10 +20,13 @@ function resolvePreloadPath(): string {
 }
 
 function resolveAppIcon(): string | undefined {
-  const resourceDirs = [
-    path.join(__dirname, '../resources'),
-    path.join(__dirname, '../../resources')
-  ]
+  const resourceDirs = app.isPackaged
+    ? [path.join(process.resourcesPath, 'resources')]
+    : [
+        path.join(__dirname, '../resources'),
+        path.join(__dirname, '../../resources'),
+        path.join(process.cwd(), 'resources')
+      ]
 
   const fileNames =
     process.platform === 'win32'
