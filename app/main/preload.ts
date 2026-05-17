@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import type { Event, Expense, ChecklistItem } from './db/schema'
+import type { Event, Expense, ChecklistItem, Bill } from './db/schema'
+import type { BillSummary } from './services/billLogic'
 
 export interface PlanitAPI {
   events: {
@@ -32,6 +33,30 @@ export interface PlanitAPI {
     update: (data: { id: string; label?: string; done?: boolean }) => Promise<ChecklistItem>
     delete: (data: { id: string }) => Promise<{ success: boolean }>
   }
+  bills: {
+    list: () => Promise<Bill[]>
+    create: (data: {
+      name: string
+      amountDue: number
+      dueDate: number
+      autoPay: boolean
+    }) => Promise<Bill>
+    update: (data: {
+      id: string
+      name: string
+      amountDue: number
+      dueDate: number
+      autoPay: boolean
+    }) => Promise<Bill>
+    delete: (data: { id: string }) => Promise<{ success: boolean }>
+    recordPayment: (data: {
+      id: string
+      amountPaid: number
+      paidDate?: string
+    }) => Promise<Bill>
+    processAutoPay: () => Promise<{ autoPaid: string[] }>
+    summary: () => Promise<BillSummary>
+  }
 }
 
 const api: PlanitAPI = {
@@ -52,6 +77,15 @@ const api: PlanitAPI = {
     create: (data) => ipcRenderer.invoke('checklist:create', data),
     update: (data) => ipcRenderer.invoke('checklist:update', data),
     delete: (data) => ipcRenderer.invoke('checklist:delete', data)
+  },
+  bills: {
+    list: () => ipcRenderer.invoke('bills:list'),
+    create: (data) => ipcRenderer.invoke('bills:create', data),
+    update: (data) => ipcRenderer.invoke('bills:update', data),
+    delete: (data) => ipcRenderer.invoke('bills:delete', data),
+    recordPayment: (data) => ipcRenderer.invoke('bills:recordPayment', data),
+    processAutoPay: () => ipcRenderer.invoke('bills:processAutoPay'),
+    summary: () => ipcRenderer.invoke('bills:summary')
   }
 }
 

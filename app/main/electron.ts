@@ -6,17 +6,20 @@ import { initDatabase } from './db/drizzle'
 import { registerEventHandlers } from './ipcHandlers/events'
 import { registerExpenseHandlers } from './ipcHandlers/expenses'
 import { registerChecklistHandlers } from './ipcHandlers/checklist'
+import { registerBillHandlers, runAutoPayOnStartup } from './ipcHandlers/bills'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 let mainWindow: BrowserWindow | null = null
 
 function resolvePreloadPath(): string {
-  const candidates = [
-    path.join(__dirname, '../preload/preload.mjs'),
-    path.join(__dirname, '../preload/preload.js')
-  ]
-  return candidates.find((p) => existsSync(p)) ?? candidates[1]
+  const dir = path.join(__dirname, '../preload')
+  const candidates = ['preload.cjs', 'preload.js', 'preload.mjs']
+  for (const file of candidates) {
+    const fullPath = path.join(dir, file)
+    if (existsSync(fullPath)) return fullPath
+  }
+  return path.join(dir, 'preload.cjs')
 }
 
 function resolveAppIcon(): string | undefined {
@@ -88,6 +91,8 @@ app.whenReady().then(() => {
   registerEventHandlers()
   registerExpenseHandlers()
   registerChecklistHandlers()
+  registerBillHandlers()
+  runAutoPayOnStartup().catch(console.error)
 
   createWindow()
 

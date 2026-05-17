@@ -9,7 +9,7 @@ flowchart TB
   subgraph Desktop["Electron desktop app"]
     subgraph Renderer["Renderer process (React + Vite)"]
       UI["Pages & components"]
-      Hooks["Hooks: useEvents, useExpenses, useChecklist"]
+      Hooks["Hooks: useEvents, useExpenses, useChecklist, useBills"]
       UI --> Hooks
     end
 
@@ -47,7 +47,7 @@ flowchart TB
 | **Renderer** | Chromium (sandboxed) | UI, routing, charts, calls `window.api` only |
 | **Preload** | Isolated bridge | Exposes typed `PlanitAPI` via `contextBridge` |
 | **Main** | Node.js | Window lifecycle, IPC, DB access, migrations |
-| **SQLite** | Disk (`userData/planit.db`) | Persistent events, expenses, checklist |
+| **SQLite** | Disk (`userData/planit.db`) | Persistent events, expenses, checklist, bills |
 
 ## IPC request flow
 
@@ -97,10 +97,21 @@ flowchart LR
     C4["checklist:delete"]
   end
 
-  Handlers["ipcHandlers/\nevents · expenses · checklist"]
+  subgraph Bills
+    B1["bills:list"]
+    B2["bills:create"]
+    B3["bills:update"]
+    B4["bills:delete"]
+    B5["bills:recordPayment"]
+    B6["bills:processAutoPay"]
+    B7["bills:summary"]
+  end
+
+  Handlers["ipcHandlers/\nevents · expenses · checklist · bills"]
   Events --> Handlers
   Expenses --> Handlers
   Checklist --> Handlers
+  Bills --> Handlers
 ```
 
 Every handler validates input with **Zod** before touching the database.
@@ -136,9 +147,28 @@ erDiagram
     int done
     int created_at
   }
+
+  bills {
+    text id PK
+    text name
+    real amount_due
+    int due_date
+    real last_paid_amount
+    text last_paid_date
+    int auto_pay
+    int created_at
+  }
 ```
 
-Deleting an **event** cascades to its expenses and checklist items.
+Deleting an **event** cascades to its expenses and checklist items. **Bills** are global (no `event_id`) — separate from the event budgeting domain.
+
+## Bills module
+
+Global monthly bill tracking (BillDash-inspired, native to Planit):
+
+- **Routes:** `/bills`, `/bills/payments`, `/bills/charts`
+- **Logic:** [`app/main/services/billLogic.ts`](app/main/services/billLogic.ts) — validation, auto-pay, status, totals
+- **Auto-pay:** runs on app start and when any Bills page loads
 
 ## UI routing
 
@@ -153,7 +183,18 @@ flowchart TD
   List -->|Dashboard| Dash
   Dash -->|All events| Home
   List -->|All events| Home
+
+  BillsHome["/bills  Bills list"]
+  BillsPay["/bills/payments"]
+  BillsCharts["/bills/charts"]
+
+  BillsHome --> BillsPay
+  BillsHome --> BillsCharts
+  BillsPay --> BillsHome
+  BillsCharts --> BillsHome
 ```
+
+Header nav: **Events** | **Bills** (sibling top-level areas).
 
 ## Repository layout
 
@@ -181,6 +222,9 @@ flowchart TB
   pages --> home["Home"]
   pages --> dash["EventDashboard"]
   pages --> checklist["Checklist"]
+  pages --> billsPages["bills/ Bills · Payments · Charts"]
+
+  main --> billLogic["services/billLogic.ts"]
 ```
 
 ## Build & runtime

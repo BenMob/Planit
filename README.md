@@ -27,6 +27,25 @@ npm run build
 npm run preview
 ```
 
+## Deploy (Windows)
+
+```bat
+deploy.bat   REM builds portable exe and copies to Desktop (see .env.local)
+clean.bat    REM removes out/, release/, and other build artifacts
+```
+
+Copy `.env.example` to `.env.local` and set `PLANIT_DEPLOY_DIR` to your Desktop path.
+
+## Bills
+
+Planit includes a **global Bills** view (separate from Events) for tracking monthly bills:
+
+- **All Bills** — CRUD, due day, auto-pay, status (paid / due / upcoming)
+- **Payments** — record amount and date
+- **Dashboard** — pie chart, summary cards, and bills table (highest to lowest)
+
+Auto-pay runs on app startup and when you open any Bills page.
+
 ## Data
 
 The database file is stored at:

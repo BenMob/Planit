@@ -58,10 +58,13 @@ export default function Chart({ data, variant = 'pie' }: ChartProps) {
                 background: '#1a2332',
                 border: '1px solid #2d3a4f',
                 borderRadius: '8px',
-                fontSize: '13px'
+                fontSize: '13px',
+                color: '#f3f4f6'
               }}
+              itemStyle={{ color: '#f3f4f6' }}
+              labelStyle={{ color: '#f3f4f6' }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ color: '#9ca3af' }} />
           </PieChart>
         ) : (
           <BarChart data={chartData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
@@ -73,8 +76,11 @@ export default function Chart({ data, variant = 'pie' }: ChartProps) {
               contentStyle={{
                 background: '#1a2332',
                 border: '1px solid #2d3a4f',
-                borderRadius: '8px'
+                borderRadius: '8px',
+                color: '#f3f4f6'
               }}
+              itemStyle={{ color: '#f3f4f6' }}
+              labelStyle={{ color: '#f3f4f6' }}
             />
             <Bar dataKey="value" radius={[4, 4, 0, 0]}>
               {chartData.map((_, index) => (
