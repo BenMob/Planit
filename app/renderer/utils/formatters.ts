@@ -1,0 +1,39 @@
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+})
+
+export function formatCurrency(amount: number): string {
+  return currencyFormatter.format(amount)
+}
+
+export function formatDate(date: Date | string | number): string {
+  const d = date instanceof Date ? date : new Date(date)
+  return d.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  })
+}
+
+export const EXPENSE_CATEGORIES = [
+  'Food',
+  'Transport',
+  'Accommodation',
+  'Entertainment',
+  'Shopping',
+  'Supplies',
+  'Other'
+] as const
+
+export type ExpenseCategory = (typeof EXPENSE_CATEGORIES)[number]
+
+export const CHART_COLORS = [
+  '#3b82f6',
+  '#8b5cf6',
+  '#ec4899',
+  '#f59e0b',
+  '#10b981',
+  '#06b6d4',
+  '#f97316'
+]

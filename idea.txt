@@ -1,0 +1,11 @@
+I want to create an app called planit that I can use to budget expenses for events (trips, parties, anything that requires money allocation)
+
+The app should allow me to create a new Event and enter different expenses for it and then they get saved in a json database on my local computer.
+
+Each event should have a Dashboard which shows a chart and table detailing expeditures for the event. 
+
+Each event should also have a checklist where I can go update everytime 
+
+An item is cleared, and what is pending.
+
+Note this app is for my personal use, not for public

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="Planit">
+  <rect width="32" height="32" rx="8" fill="#3b82f6"/>
+  <path
+    d="M10 22V10h6a5 5 0 0 1 0 10h-4"
+    stroke="white"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
