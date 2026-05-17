@@ -2,6 +2,8 @@
 
 Desktop app for budgeting expenses for events — trips, parties, and any activity that needs money allocation.
 
+**Repository:** [github.com/BenMob/Planit](https://github.com/BenMob/Planit)
+
 ## Stack
 
 - **Electron** — desktop shell

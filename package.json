@@ -2,6 +2,14 @@
   "name": "planit",
   "version": "1.0.0",
   "description": "Budget expenses for events — trips, parties, and more",
+  "homepage": "https://github.com/BenMob/Planit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenMob/Planit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BenMob/Planit/issues"
+  },
   "main": "out/main/electron.js",
   "type": "module",
   "scripts": {
