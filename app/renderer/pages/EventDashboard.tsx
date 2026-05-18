@@ -3,13 +3,21 @@ import { Link, useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import Card from '../components/Card'
 import Chart from '../components/Chart'
+import ChartViewToggle from '../components/ChartViewToggle'
 import Table, { type Column } from '../components/Table'
 import { useEvent } from '../hooks/useEvents'
 import { useExpenses } from '../hooks/useExpenses'
-import { summarizeByCategory, totalExpenses } from '../utils/categories'
+import {
+  sortExpensesByAmount,
+  summarizeByCategory,
+  summarizeByItem,
+  totalExpenses
+} from '../utils/categories'
 import { formatCurrency, formatDate } from '../utils/formatters'
 import AddExpenseModal from './AddExpenseModal'
 import type { Expense } from '../../main/db/schema'
+
+type ChartView = 'category' | 'item'
 
 export default function EventDashboard() {
   const { eventId } = useParams<{ eventId: string }>()
@@ -17,8 +25,11 @@ export default function EventDashboard() {
   const { expenses, loading: expensesLoading, create, update, remove } = useExpenses(eventId)
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing] = useState<Expense | null>(null)
+  const [chartView, setChartView] = useState<ChartView>('category')
 
-  const summary = summarizeByCategory(expenses)
+  const sortedExpenses = sortExpensesByAmount(expenses)
+  const chartData =
+    chartView === 'category' ? summarizeByCategory(expenses) : summarizeByItem(expenses)
   const total = totalExpenses(expenses)
 
   const openAdd = () => {
@@ -36,7 +47,7 @@ export default function EventDashboard() {
     {
       key: 'amount',
       header: 'Amount',
-      render: (r) => <span className="font-medium text-gray-100">{formatCurrency(r.amount)}</span>,
+      render: (r) => <span className="font-medium text-fg">{formatCurrency(r.amount)}</span>,
       className: 'text-right'
     },
     {
@@ -51,12 +62,12 @@ export default function EventDashboard() {
     {
       key: 'notes',
       header: 'Notes',
-      render: (r) => <span className="text-gray-500">{r.notes ?? '—'}</span>
+      render: (r) => <span className="text-fg-subtle">{r.notes ?? '—'}</span>
     },
     {
       key: 'date',
       header: 'Date',
-      render: (r) => <span className="text-gray-500">{formatDate(r.createdAt)}</span>
+      render: (r) => <span className="text-fg-subtle">{formatDate(r.createdAt)}</span>
     },
     {
       key: 'actions',
@@ -82,13 +93,13 @@ export default function EventDashboard() {
   ]
 
   if (eventLoading) {
-    return <p className="text-gray-500 text-sm">Loading…</p>
+    return <p className="text-fg-subtle text-sm">Loading…</p>
   }
 
   if (!event) {
     return (
       <div className="text-center py-16">
-        <p className="text-gray-400">Event not found.</p>
+        <p className="text-fg-muted">Event not found.</p>
         <Link to="/" className="text-accent text-sm mt-2 inline-block hover:underline">
           Back to home
         </Link>
@@ -101,21 +112,25 @@ export default function EventDashboard() {
       <div className="mb-8">
         <h1 className="text-2xl font-bold tracking-tight">{event.name}</h1>
         {event.description && (
-          <p className="text-gray-400 mt-1 text-sm">{event.description}</p>
+          <p className="text-fg-muted mt-1 text-sm">{event.description}</p>
         )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <Card className="lg:col-span-1">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Total spent</p>
-          <p className="text-3xl font-bold text-white mt-2">{formatCurrency(total)}</p>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-xs font-medium text-fg-muted uppercase tracking-wide">Total spent</p>
+          <p className="text-3xl font-bold text-fg mt-2">{formatCurrency(total)}</p>
+          <p className="text-sm text-fg-subtle mt-1">
             {expenses.length} expense{expenses.length !== 1 ? 's' : ''}
           </p>
         </Card>
 
-        <Card title="By category" className="lg:col-span-2">
-          <Chart data={summary} />
+        <Card
+          title={chartView === 'category' ? 'By category' : 'By item'}
+          className="lg:col-span-2"
+          action={<ChartViewToggle value={chartView} onChange={setChartView} />}
+        >
+          <Chart data={chartData} />
         </Card>
       </div>
 
@@ -133,7 +148,7 @@ export default function EventDashboard() {
       >
         <Table
           columns={columns}
-          data={expenses}
+          data={sortedExpenses}
           keyExtractor={(r) => r.id}
           emptyMessage="No expenses yet. Add your first one above."
         />

@@ -16,8 +16,8 @@ export default function Card({ title, subtitle, action, children, className = ''
       {(title || action) && (
         <div className="px-5 py-4 border-b border-surface-border flex items-start justify-between gap-4">
           <div>
-            {title && <h2 className="text-base font-semibold text-gray-100">{title}</h2>}
-            {subtitle && <p className="text-sm text-gray-400 mt-0.5">{subtitle}</p>}
+            {title && <h2 className="text-base font-semibold text-fg">{title}</h2>}
+            {subtitle && <p className="text-sm text-fg-muted mt-0.5">{subtitle}</p>}
           </div>
           {action}
         </div>

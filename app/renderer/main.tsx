@@ -2,7 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 import App from './App'
+import { applyTheme, getStoredTheme } from './theme/storage'
 import './index.css'
+
+applyTheme(getStoredTheme())
 
 function showMissingApiMessage(): void {
   const root = document.getElementById('root')

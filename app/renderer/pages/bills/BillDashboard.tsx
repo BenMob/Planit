@@ -20,7 +20,7 @@ const dashboardColumns: Column<Bill>[] = [
     key: 'amount',
     header: 'Amount Due',
     render: (r) => (
-      <span className="font-medium text-gray-100">{formatCurrency(r.amountDue)}</span>
+      <span className="font-medium text-fg">{formatCurrency(r.amountDue)}</span>
     )
   },
   {
@@ -58,42 +58,42 @@ export default function BillDashboard() {
     <div>
       <div className="mb-2">
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-gray-400 mt-1 text-sm">
+        <p className="text-fg-muted mt-1 text-sm">
           Monthly obligations and payment snapshot.
         </p>
       </div>
 
       <BillsNav />
 
-      {loading && <p className="text-gray-500 text-sm">Loading…</p>}
+      {loading && <p className="text-fg-subtle text-sm">Loading…</p>}
       {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
       {summary && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <Card>
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+            <p className="text-xs font-medium text-fg-muted uppercase tracking-wide">
               Total monthly due
             </p>
-            <p className="text-2xl font-bold text-white mt-2">
+            <p className="text-2xl font-bold text-fg mt-2">
               {formatCurrency(summary.totalDue)}
             </p>
           </Card>
           <Card>
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+            <p className="text-xs font-medium text-fg-muted uppercase tracking-wide">
               Last paid (sum)
             </p>
-            <p className="text-2xl font-bold text-white mt-2">
+            <p className="text-2xl font-bold text-fg mt-2">
               {formatCurrency(summary.totalPaid)}
             </p>
           </Card>
           <Card>
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Status</p>
-            <p className="text-sm text-gray-300 mt-2">
+            <p className="text-xs font-medium text-fg-muted uppercase tracking-wide">Status</p>
+            <p className="text-sm text-fg-muted mt-2">
               <span className="text-emerald-400">{summary.paidCount} paid</span>
               {' · '}
               <span className="text-amber-400">{summary.dueCount} due</span>
               {' · '}
-              <span className="text-gray-400">{summary.upcomingCount} upcoming</span>
+              <span className="text-fg-muted">{summary.upcomingCount} upcoming</span>
             </p>
           </Card>
         </div>

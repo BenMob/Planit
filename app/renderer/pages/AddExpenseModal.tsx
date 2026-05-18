@@ -86,7 +86,7 @@ export default function AddExpenseModal({
           </p>
         )}
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Name</span>
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Name</span>
           <input
             className="w-full mt-1"
             value={name}
@@ -96,7 +96,7 @@ export default function AddExpenseModal({
           />
         </label>
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Amount</span>
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Amount</span>
           <input
             className="w-full mt-1"
             type="number"
@@ -108,7 +108,7 @@ export default function AddExpenseModal({
           />
         </label>
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Category</span>
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Category</span>
           <select
             className="w-full mt-1"
             value={category}
@@ -122,7 +122,7 @@ export default function AddExpenseModal({
           </select>
         </label>
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">
             Notes (optional)
           </span>
           <textarea

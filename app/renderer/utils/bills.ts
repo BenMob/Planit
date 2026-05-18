@@ -41,9 +41,9 @@ export const STATUS_LABELS: Record<BillStatus, string> = {
 }
 
 export const STATUS_CLASSES: Record<BillStatus, string> = {
-  paid: 'bg-emerald-950/50 text-emerald-400 border-emerald-900/50',
-  due: 'bg-amber-950/50 text-amber-400 border-amber-900/50',
-  upcoming: 'bg-surface-border/50 text-gray-400 border-surface-border'
+  paid: 'bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/50',
+  due: 'bg-amber-100 dark:bg-amber-950/50 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-900/50',
+  upcoming: 'bg-surface-border/50 text-fg-muted border-surface-border'
 }
 
 export function sortBillsByAmountDesc(bills: Bill[]): Bill[] {

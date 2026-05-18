@@ -22,7 +22,7 @@ export default function Table<T>({
 }: TableProps<T>) {
   if (data.length === 0) {
     return (
-      <p className="text-sm text-gray-500 text-center py-8">{emptyMessage}</p>
+      <p className="text-sm text-fg-subtle text-center py-8">{emptyMessage}</p>
     )
   }
 
@@ -30,7 +30,7 @@ export default function Table<T>({
     <div className="overflow-x-auto -mx-5">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-surface-border text-left text-gray-400">
+          <tr className="border-b border-surface-border text-left text-fg-muted">
             {columns.map((col) => (
               <th key={col.key} className={`px-5 py-2.5 font-medium ${col.className ?? ''}`}>
                 {col.header}

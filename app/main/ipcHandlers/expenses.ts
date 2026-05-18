@@ -37,7 +37,7 @@ export function registerExpenseHandlers(): void {
       .select()
       .from(expenses)
       .where(eq(expenses.eventId, input.eventId))
-      .orderBy(desc(expenses.createdAt))
+      .orderBy(desc(expenses.amount))
   })
 
   ipcMain.handle('expenses:create', async (_event, raw: unknown) => {

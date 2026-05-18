@@ -57,7 +57,7 @@ function createWindow(): void {
     minWidth: 900,
     minHeight: 600,
     show: false,
-    backgroundColor: '#0f1419',
+    backgroundColor: '#f8fafc',
     titleBarStyle: 'hiddenInset',
     ...(icon ? { icon } : {}),
     webPreferences: {

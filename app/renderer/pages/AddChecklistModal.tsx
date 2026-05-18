@@ -64,7 +64,7 @@ export default function AddChecklistModal({
           </p>
         )}
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Item</span>
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Item</span>
           <input
             className="w-full mt-1"
             value={label}

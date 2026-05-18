@@ -68,14 +68,14 @@ export default function Home() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Your events</h1>
-          <p className="text-gray-400 mt-1 text-sm">
+          <p className="text-fg-muted mt-1 text-sm">
             Budget trips, parties, and any activity that needs a spending plan.
           </p>
         </div>
         <Button onClick={openCreate}>Create New Event</Button>
       </div>
 
-      {loading && <p className="text-gray-500 text-sm">Loading events…</p>}
+      {loading && <p className="text-fg-subtle text-sm">Loading events…</p>}
       {error && (
         <p className="text-red-400 text-sm mb-4">{error}</p>
       )}
@@ -83,7 +83,7 @@ export default function Home() {
       {!loading && events.length === 0 && (
         <Card>
           <div className="text-center py-10">
-            <p className="text-gray-400 mb-4">No events yet. Create your first one to get started.</p>
+            <p className="text-fg-muted mb-4">No events yet. Create your first one to get started.</p>
             <Button onClick={openCreate}>Create New Event</Button>
           </div>
         </Card>
@@ -98,11 +98,11 @@ export default function Home() {
                 className="flex items-center justify-between gap-4 px-5 py-4 hover:bg-surface/40 transition-colors"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-medium text-gray-100 truncate">{event.name}</p>
+                  <p className="font-medium text-fg truncate">{event.name}</p>
                   {event.description && (
-                    <p className="text-sm text-gray-500 truncate mt-0.5">{event.description}</p>
+                    <p className="text-sm text-fg-subtle truncate mt-0.5">{event.description}</p>
                   )}
-                  <p className="text-xs text-gray-600 mt-1">Created {formatDate(event.createdAt)}</p>
+                  <p className="text-xs text-fg-subtle mt-1">Created {formatDate(event.createdAt)}</p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   <Link to={`/event/${event.id}`}>
@@ -155,7 +155,7 @@ export default function Home() {
             </p>
           )}
           <label className="block">
-            <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Name</span>
+            <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Name</span>
             <input
               className="w-full mt-1"
               value={name}
@@ -165,7 +165,7 @@ export default function Home() {
             />
           </label>
           <label className="block">
-            <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+            <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">
               Description (optional)
             </span>
             <textarea

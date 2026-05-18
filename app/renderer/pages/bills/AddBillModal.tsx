@@ -85,7 +85,7 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
           </p>
         )}
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Name</span>
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Name</span>
           <input
             className="w-full mt-1"
             value={name}
@@ -95,7 +95,7 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
           />
         </label>
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">
             Amount due
           </span>
           <input
@@ -109,7 +109,7 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
           />
         </label>
         <label className="block">
-          <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+          <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">
             Due day of month (1–31)
           </span>
           <input
@@ -128,7 +128,7 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
             onChange={(e) => setAutoPay(e.target.checked)}
             className="w-4 h-4 rounded border-surface-border bg-surface text-accent focus:ring-accent"
           />
-          <span className="text-sm text-gray-300">Auto-pay when due</span>
+          <span className="text-sm text-fg-muted">Auto-pay when due</span>
         </label>
       </div>
     </Modal>

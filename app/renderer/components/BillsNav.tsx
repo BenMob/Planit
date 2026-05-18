@@ -17,8 +17,8 @@ export default function BillsNav() {
           className={({ isActive }) =>
             `px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
               isActive
-                ? 'border-accent text-white'
-                : 'border-transparent text-gray-400 hover:text-gray-200'
+                ? 'border-accent text-fg'
+                : 'border-transparent text-fg-muted hover:text-fg'
             }`
           }
         >

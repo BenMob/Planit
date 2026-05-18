@@ -35,7 +35,7 @@ export default function Bills() {
       key: 'amount',
       header: 'Amount Due',
       render: (r) => (
-        <span className="font-medium text-gray-100">{formatCurrency(r.amountDue)}</span>
+        <span className="font-medium text-fg">{formatCurrency(r.amountDue)}</span>
       )
     },
     {
@@ -101,7 +101,7 @@ export default function Bills() {
       <div className="flex items-center justify-between mb-2">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Your bills</h1>
-          <p className="text-gray-400 mt-1 text-sm">
+          <p className="text-fg-muted mt-1 text-sm">
             Track monthly bills, payments, and auto-pay.
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function Bills() {
 
       <BillsNav />
 
-      {loading && <p className="text-gray-500 text-sm">Loading bills…</p>}
+      {loading && <p className="text-fg-subtle text-sm">Loading bills…</p>}
       {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
       {!loading && (

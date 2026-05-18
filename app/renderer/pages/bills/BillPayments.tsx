@@ -47,14 +47,14 @@ export default function BillPayments() {
     <div>
       <div className="mb-2">
         <h1 className="text-2xl font-bold tracking-tight">Record payment</h1>
-        <p className="text-gray-400 mt-1 text-sm">
+        <p className="text-fg-muted mt-1 text-sm">
           Log a payment against a monthly bill.
         </p>
       </div>
 
       <BillsNav />
 
-      {loading && <p className="text-gray-500 text-sm">Loading…</p>}
+      {loading && <p className="text-fg-subtle text-sm">Loading…</p>}
       {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
       <Card className="max-w-md">
@@ -71,7 +71,7 @@ export default function BillPayments() {
           )}
 
           <label className="block">
-            <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">Bill</span>
+            <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Bill</span>
             <select
               className="w-full mt-1"
               value={billId}
@@ -91,7 +91,7 @@ export default function BillPayments() {
           </label>
 
           <label className="block">
-            <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+            <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">
               Amount paid
             </span>
             <input
@@ -106,7 +106,7 @@ export default function BillPayments() {
           </label>
 
           <label className="block">
-            <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+            <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">
               Payment date
             </span>
             <input

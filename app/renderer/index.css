@@ -2,9 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-surface: #f8fafc;
+  --color-surface-raised: #ffffff;
+  --color-surface-border: #e2e8f0;
+  --color-fg: #0f172a;
+  --color-fg-muted: #64748b;
+  --color-fg-subtle: #94a3b8;
+  --color-accent-muted: #dbeafe;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: #e2e8f0;
+  --chart-tooltip-fg: #0f172a;
+  --chart-legend: #64748b;
+}
+
+.dark {
+  --color-surface: #0f1419;
+  --color-surface-raised: #1a2332;
+  --color-surface-border: #2d3a4f;
+  --color-fg: #f3f4f6;
+  --color-fg-muted: #9ca3af;
+  --color-fg-subtle: #6b7280;
+  --color-accent-muted: #1e3a5f;
+  --chart-tooltip-bg: #1a2332;
+  --chart-tooltip-border: #2d3a4f;
+  --chart-tooltip-fg: #f3f4f6;
+  --chart-legend: #9ca3af;
+}
+
 @layer base {
   body {
-    @apply bg-surface text-gray-100 font-sans antialiased;
+    @apply bg-surface text-fg font-sans antialiased;
   }
 
   * {
@@ -14,7 +42,7 @@
   input,
   textarea,
   select {
-    @apply bg-surface-raised border border-surface-border rounded-lg px-3 py-2 text-sm text-gray-100
-      placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent;
+    @apply bg-surface-raised border border-surface-border rounded-lg px-3 py-2 text-sm text-fg
+      placeholder:text-fg-subtle focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent;
   }
 }

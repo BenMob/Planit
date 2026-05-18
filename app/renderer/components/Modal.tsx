@@ -29,10 +29,10 @@ export default function Modal({ open, onClose, title, children, footer }: ModalP
         className="relative w-full max-w-md bg-surface-raised border border-surface-border rounded-xl shadow-2xl"
       >
         <div className="px-5 py-4 border-b border-surface-border flex items-center justify-between">
-          <h2 className="text-lg font-semibold">{title}</h2>
+          <h2 className="text-lg font-semibold text-fg">{title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-200 p-1 rounded-md hover:bg-surface-border transition-colors"
+            className="text-fg-muted hover:text-fg p-1 rounded-md hover:bg-surface-border transition-colors"
             aria-label="Close"
           >
             ✕
