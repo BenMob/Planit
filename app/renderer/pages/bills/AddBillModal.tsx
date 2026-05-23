@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import Modal, { ModalFooter } from '../../components/Modal'
+import { amountToInputValue, isValidAmountInput } from '../../utils/formatters'
 import type { Bill } from '../../../main/db/schema'
 
 interface AddBillModalProps {
@@ -22,15 +23,16 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const editingBillId = bill?.id
+
   useEffect(() => {
-    if (open) {
-      setName(bill?.name ?? '')
-      setAmountDue(bill ? String(bill.amountDue) : '')
-      setDueDate(bill ? String(bill.dueDate) : '1')
-      setAutoPay(bill?.autoPay ?? false)
-      setError(null)
-    }
-  }, [open, bill])
+    if (!open) return
+    setName(bill?.name ?? '')
+    setAmountDue(bill != null ? amountToInputValue(bill.amountDue) : '')
+    setDueDate(bill != null ? String(bill.dueDate) : '1')
+    setAutoPay(bill?.autoPay ?? false)
+    setError(null)
+  }, [open, editingBillId])
 
   const handleSubmit = async () => {
     const amount = parseFloat(amountDue)
@@ -100,11 +102,14 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
           </span>
           <input
             className="w-full mt-1"
-            type="number"
-            min="0"
-            step="0.01"
+            type="text"
+            inputMode="decimal"
+            autoComplete="off"
             value={amountDue}
-            onChange={(e) => setAmountDue(e.target.value)}
+            onChange={(e) => {
+              const next = e.target.value
+              if (isValidAmountInput(next)) setAmountDue(next)
+            }}
             placeholder="0.00"
           />
         </label>
@@ -114,11 +119,15 @@ export default function AddBillModal({ open, onClose, onSave, bill }: AddBillMod
           </span>
           <input
             className="w-full mt-1"
-            type="number"
-            min="1"
-            max="31"
+            type="text"
+            inputMode="numeric"
+            autoComplete="off"
+            maxLength={2}
             value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
+            onChange={(e) => {
+              const next = e.target.value
+              if (next === '' || /^\d+$/.test(next)) setDueDate(next)
+            }}
           />
         </label>
         <label className="flex items-center gap-2 cursor-pointer">

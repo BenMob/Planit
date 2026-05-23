@@ -3,7 +3,7 @@ import Button from '../../components/Button'
 import Card from '../../components/Card'
 import BillsNav from '../../components/BillsNav'
 import { useBills } from '../../hooks/useBills'
-import { formatCurrency } from '../../utils/formatters'
+import { amountToInputValue, formatCurrency, isValidAmountInput } from '../../utils/formatters'
 
 export default function BillPayments() {
   const { bills, loading, error, recordPayment } = useBills({ runAutoPay: true })
@@ -78,7 +78,7 @@ export default function BillPayments() {
               onChange={(e) => {
                 setBillId(e.target.value)
                 const bill = bills.find((b) => b.id === e.target.value)
-                if (bill) setAmount(String(bill.amountDue))
+                if (bill) setAmount(amountToInputValue(bill.amountDue))
               }}
             >
               <option value="">Select a bill…</option>
@@ -96,11 +96,14 @@ export default function BillPayments() {
             </span>
             <input
               className="w-full mt-1"
-              type="number"
-              min="0"
-              step="0.01"
+              type="text"
+              inputMode="decimal"
+              autoComplete="off"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+                const next = e.target.value
+                if (isValidAmountInput(next)) setAmount(next)
+              }}
               placeholder="0.00"
             />
           </label>

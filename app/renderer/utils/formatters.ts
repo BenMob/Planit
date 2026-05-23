@@ -7,6 +7,17 @@ export function formatCurrency(amount: number): string {
   return currencyFormatter.format(amount)
 }
 
+/** Matches partial currency input while typing (e.g. "12", "12.", "12.5") */
+const AMOUNT_INPUT_PATTERN = /^\d*\.?\d*$/
+
+export function isValidAmountInput(value: string): boolean {
+  return AMOUNT_INPUT_PATTERN.test(value)
+}
+
+export function amountToInputValue(amount: number): string {
+  return String(amount)
+}
+
 export function formatDate(date: Date | string | number): string {
   const d = date instanceof Date ? date : new Date(date)
   return d.toLocaleDateString('en-US', {

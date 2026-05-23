@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Modal, { ModalFooter } from '../components/Modal'
-import { EXPENSE_CATEGORIES } from '../utils/formatters'
+import { EXPENSE_CATEGORIES, amountToInputValue, isValidAmountInput } from '../utils/formatters'
 import type { Expense } from '../../main/db/schema'
 
 interface AddExpenseModalProps {
@@ -28,15 +28,16 @@ export default function AddExpenseModal({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const editingExpenseId = expense?.id
+
   useEffect(() => {
-    if (open) {
-      setName(expense?.name ?? '')
-      setAmount(expense ? String(expense.amount) : '')
-      setCategory(expense?.category ?? EXPENSE_CATEGORIES[0])
-      setNotes(expense?.notes ?? '')
-      setError(null)
-    }
-  }, [open, expense])
+    if (!open) return
+    setName(expense?.name ?? '')
+    setAmount(expense != null ? amountToInputValue(expense.amount) : '')
+    setCategory(expense?.category ?? EXPENSE_CATEGORIES[0])
+    setNotes(expense?.notes ?? '')
+    setError(null)
+  }, [open, editingExpenseId])
 
   const handleSubmit = async () => {
     const parsed = parseFloat(amount)
@@ -99,11 +100,14 @@ export default function AddExpenseModal({
           <span className="text-xs font-medium text-fg-muted uppercase tracking-wide">Amount</span>
           <input
             className="w-full mt-1"
-            type="number"
-            min="0"
-            step="0.01"
+            type="text"
+            inputMode="decimal"
+            autoComplete="off"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => {
+              const next = e.target.value
+              if (isValidAmountInput(next)) setAmount(next)
+            }}
             placeholder="0.00"
           />
         </label>
